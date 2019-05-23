@@ -33,6 +33,12 @@ const logTestResult = (testStatus, testDescription) => {
   console.log(`${testStatus}${testDescription}`);
 }
 
+
+
+tests('checks if B is X', () => {
+  expect("cheese").toBe("cheese");
+})
+
 tests('checks if X is X', () => {
   expect("cheese").toBe("chdeese");
 })

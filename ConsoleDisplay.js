@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const message = require('./Messages');
 
 class ConsoleDisplay{
@@ -28,7 +29,16 @@ class ConsoleDisplay{
 
   displayFinalTestResults(){
     this.updateTestResultList();
-    this.fullTestArray.map( x => console.log(x))
+    this.fullTestArray.map( str => this.selectColor(str))
+  }
+
+  selectColor(str){
+    if(str.includes( message.TEST_PASSED)){
+      console.log(chalk.green(str));
+    }
+    else{
+      console.log(chalk.red(str));
+    }
   }
 }
 
