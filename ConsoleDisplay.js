@@ -39,7 +39,7 @@ class ConsoleDisplay{
 
   displayCompleteTestResults(){
     this.updateFullTestArray();
-    this.fullTestArray.map( str => this.styleResultsDisplay(str))
+    this.fullTestArray.map( status => this.styleResultsDisplay(status))
   }
 
   styleResultsDisplay(str){

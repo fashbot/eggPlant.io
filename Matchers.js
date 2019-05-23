@@ -65,6 +65,11 @@ const expect = (expectedValue) => {
     consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
+  const toContain = (actualValue) => {
+    expectedCondition =  expectedValue.includes(actualValue)
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
+  }
+
   return {
       toBe: toBe,
       toStrictlyEqual: toStrictlyEqual,
@@ -75,8 +80,8 @@ const expect = (expectedValue) => {
       toBeGreaterThan: toBeGreaterThan,
       toBeLessThan: toBeLessThan,
       toHaveLengthOf: toHaveLengthOf,
-      toBeNull: toBeNull
+      toBeNull: toBeNull,
+      toContain: toContain
   };
 }
-
 consoleDisplay.displayCompleteTestResults();
