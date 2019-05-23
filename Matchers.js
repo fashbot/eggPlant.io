@@ -23,28 +23,20 @@ const expect = (expectedValue) => {
     }
   }
 
+  const toEqual = (actualValue) => {
+    if(expectedValue === actualValue){
+      consoleDisplay.logTestResult(message.TEST_PASSED, currentTestDescription);
+    }
+    else{
+      consoleDisplay.logTestResult(message.TEST_FAILED, currentTestDescription);
+    }
+  }
+
+
   return {
       toBe: toBe,
+      toEqual: toEqual
   };
 
 }
-
-const logTestResult = (testStatus, testDescription) => {
-  console.log(`${testStatus}${testDescription}`);
-}
-
-
-
-tests('checks if B is X', () => {
-  expect("cheese").toBe("cheese");
-})
-
-tests('checks if X is X', () => {
-  expect("cheese").toBe("chdeese");
-})
-
-tests('checks if B is X', () => {
-  expect("cheese").toBe("cheese");
-})
-
 consoleDisplay.displayFinalTestResults();

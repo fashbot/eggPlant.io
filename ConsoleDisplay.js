@@ -7,6 +7,7 @@ class ConsoleDisplay{
     this.passedTestArray = [];
     this.failedTestArray = [];
     this.fullTestArray = []
+    this.errorArray = [];
   }
 
   logTestResult(testStatus, testDescription){
@@ -29,10 +30,10 @@ class ConsoleDisplay{
 
   displayFinalTestResults(){
     this.updateTestResultList();
-    this.fullTestArray.map( str => this.selectColor(str))
+    this.fullTestArray.map( str => this.colorConsoleResultDisplay(str))
   }
 
-  selectColor(str){
+  colorConsoleResultDisplay(str){
     if(str.includes( message.TEST_PASSED)){
       console.log(chalk.green(str));
     }
