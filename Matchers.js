@@ -5,10 +5,10 @@ let currentTestDescription = null
 let consoleDisplay = new ConsoleDisplay();
 let expectedCondition = null
 
-const describe = (testDescription, callback) => {
+const testing = (testDescription, callback) => {
   callback();
 }
-const tests = (testDescription, callback) => {
+const checks = (testDescription, callback) => {
   currentTestDescription = testDescription;
   callback();
 }
@@ -84,4 +84,5 @@ const expect = (expectedValue) => {
       toContain: toContain
   };
 }
+
 consoleDisplay.displayCompleteTestResults();
