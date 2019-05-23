@@ -3,7 +3,7 @@ let ConsoleDisplay = require('./ConsoleDisplay');
 
 let currentTestDescription = null
 let consoleDisplay = new ConsoleDisplay();
-let testedCondition = null
+let expectedCondition = null
 
 const describe = (testDescription, callback) => {
   callback();
@@ -16,44 +16,67 @@ const tests = (testDescription, callback) => {
 const expect = (expectedValue) => {
 
   const toBe = (actualValue) => {
-    testedCondition = expectedValue == actualValue
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+    expectedCondition = expectedValue == actualValue
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
-  const toEqual = (actualValue) => {
-    testedCondition = expectedValue === actualValue
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+  const toStrictlyEqual = (actualValue) => {
+    expectedCondition = expectedValue === actualValue
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
   const toBeTrue = () => {
-    testedCondition = expectedValue === true
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+    expectedCondition = expectedValue === true
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
   const toBeFalse = () => {
-    testedCondition = expectedValue === false
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+    expectedCondition = expectedValue === false
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
   const toBeEmpty = () => {
-    testedCondition = expectedValue.length === 0
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+    expectedCondition = expectedValue.length === 0
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
   const toBeOfType = (type) => {
-    testedCondition = typeof expectedValue === type
-    consoleDisplay.testWithExpectedCondition(testedCondition, currentTestDescription)
+    expectedCondition = typeof expectedValue === type
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
+  }
+
+  const toBeGreaterThan = (value) => {
+    expectedCondition = expectedValue > value
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
+  }
+
+  const toBeLessThan = (value) => {
+    expectedCondition = expectedValue < value
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
+  }
+
+  const toHaveLengthOf = (value) => {
+    expectedCondition = expectedValue.length === value
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
+  }
+
+  const toBeNull = () => {
+    expectedCondition =  expectedValue === null
+    consoleDisplay.testWithExpectedCondition(expectedCondition, currentTestDescription)
   }
 
   return {
       toBe: toBe,
-      toEqual: toEqual,
+      toStrictlyEqual: toStrictlyEqual,
       toBeTrue: toBeTrue,
       toBeFalse: toBeFalse,
       toBeEmpty: toBeEmpty,
-      toBeOfType: toBeOfType
+      toBeOfType: toBeOfType,
+      toBeGreaterThan: toBeGreaterThan,
+      toBeLessThan: toBeLessThan,
+      toHaveLengthOf: toHaveLengthOf,
+      toBeNull: toBeNull
   };
-
 }
 
 consoleDisplay.displayCompleteTestResults();
