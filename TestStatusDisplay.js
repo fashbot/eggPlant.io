@@ -1,12 +1,15 @@
 const chalk = require('chalk');
 const message = require('./Messages');
+const Errors = require('./Errors')
 
 class TestStatusDisplay{
 
   constructor(){
     this.passingTests = [];
     this.failingTests = [];
-    this.fullTestList = []
+    this.fullTestList = [];
+    this.errors = new Errors();
+
   }
 
   testWithExpectedCondition(condition, currentTestDescription){
@@ -22,6 +25,11 @@ class TestStatusDisplay{
     var consoleText = `${testStatus}${testDescription}`
     this.placeTestInCorrectArray(testStatus, consoleText)
   };
+
+  logTestErrors(actual, expected){
+      const message = this.errors.setErrorMessage(actual, expected);
+      this.errors.pushErrorMessageToStack(message)
+  }
 
   placeTestInCorrectArray(testStatus, shownConsoleMessage){
     if(testStatus == message.TEST_PASSED){
@@ -42,12 +50,21 @@ class TestStatusDisplay{
   }
 
   displayCompleteTestResults(){
+    this.styleWithBorder();
     this.updateFullTestArray();
     this.fullTestList.map( status => this.styleResultsDisplay(status))
+    this.styleWithBorder();
   }
-}
 
-let c = new TestStatusDisplay();
-c.testWithExpectedCondition(4==2, 'blah')
+  this.styleWithBorder(){
+    console.log(message.BLANK);
+    console.log(message.DIVIDER)
+  }
+
+  displayCompleteErrors(){
+      this.errors.displayAllErrors();
+  }
+
+}
 
 module.exports = TestStatusDisplay;
