@@ -1,8 +1,15 @@
-const TEST_PASSED = "Test passed: ";
-const TEST_FAILED = "Test failed: ";
-const errorMessage = (expected, actual) => `Expected '${expected.toString()}' to be ${expected}. Received ${actual}`
+const TEST_PASSED = "Test passed: Checks ";
+const TEST_FAILED = "Test failed: Checks ";
+const BLANK = " ";
+const TEST_SUITE = "Test suite: ";
+const DIVIDER = "=================================================";
+const errorMessage = (expected, actual) => `Expected result to be ${actual}. Instead, value is ${expected}`
 
 module.exports = {
   TEST_PASSED,
-  TEST_FAILED
+  TEST_FAILED,
+  BLANK,
+  TEST_SUITE,
+  DIVIDER,
+  errorMessage
 }
