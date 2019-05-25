@@ -38,17 +38,17 @@ const expect = (expectedValue) => {
 
   const toBeTrue = () => {
     expectedCondition = (expectedValue === true)
-    displayResults(actualValue, expectedValue);
+    displayResults(!expectedCondition, expectedCondition);
   }
 
   const toBeFalse = () => {
     expectedCondition = (expectedValue === false)
-    displayResults(actualValue, expectedValue);
+    displayResults(!expectedCondition, expectedCondition);
   }
 
   const toBeEmpty = () => {
     expectedCondition = (expectedValue.length === 0)
-    displayResults(actualValue, expectedValue);
+    displayResults(!expectedCondition, expectedCondition);
   }
 
   const toBeOfType = (type) => {
@@ -58,7 +58,7 @@ const expect = (expectedValue) => {
 
   const toBeGreaterThan = (actualValue) => {
     expectedCondition = (expectedValue > value)
-    displayResults(actualValue, expectedValue);
+    displayResults(!expectedCondition, expectedCondition);
   }
 
   const toBeLessThan = (actualValue) => {
@@ -78,7 +78,12 @@ const expect = (expectedValue) => {
 
   const toContain = (actualValue) => {
     expectedCondition =  expectedValue.includes(actualValue)
-    displayResults(actualValue, expectedValue);
+    displayResults(!expectedCondition, expectedCondition);
+  }
+
+  const toBeGreaterThanOrEqualsTo = (actualValue) => {
+    expectedCondition = (expectedValue > actualValue || expectedValue == actualValue)
+    displayResults(!expectedCondition, expectedCondition);
   }
 
   return {
@@ -92,7 +97,8 @@ const expect = (expectedValue) => {
       toBeLessThan: toBeLessThan,
       toHaveLengthOf: toHaveLengthOf,
       toBeNull: toBeNull,
-      toContain: toContain
+      toContain: toContain,
+      toBeGreaterThanOrEqualsTo: toBeGreaterThanOrEqualsTo
   };
 }
 
@@ -133,6 +139,12 @@ testing('A', () => {
   checks('if d', () => {
     expect(1).toBe(000);
   })
+
+  checks('greater than', () => {
+    expect(1).toBeGreaterThanOrEqualsTo(3);
+  });
+
+
 })
 
 

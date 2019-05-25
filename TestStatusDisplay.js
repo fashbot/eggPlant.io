@@ -56,7 +56,7 @@ class TestStatusDisplay{
     this.styleWithBorder();
   }
 
-  this.styleWithBorder(){
+  styleWithBorder(){
     console.log(message.BLANK);
     console.log(message.DIVIDER)
   }
