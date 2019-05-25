@@ -3,7 +3,7 @@ const TEST_FAILED = "Test failed: Checks ";
 const BLANK = " ";
 const TEST_SUITE = "Test suite: ";
 const DIVIDER = "=================================================";
-const errorMessage = (expected, actual) => `Expected result to be ${actual}. Instead, value is ${expected}`
+const errorMessage = (expected, actual) => `Expected result to be '${actual}'. Instead, value evaluates as '${expected}'`
 
 module.exports = {
   TEST_PASSED,

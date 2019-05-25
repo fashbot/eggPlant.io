@@ -9,7 +9,6 @@ class TestStatusDisplay{
     this.failingTests = [];
     this.fullTestList = [];
     this.errors = new Errors();
-
   }
 
   testWithExpectedCondition(condition, currentTestDescription){
@@ -26,9 +25,11 @@ class TestStatusDisplay{
     this.placeTestInCorrectArray(testStatus, consoleText)
   };
 
-  logTestErrors(actual, expected){
-      const message = this.errors.setErrorMessage(actual, expected);
-      this.errors.pushErrorMessageToStack(message)
+  logTestErrors(actual, expected, expression){
+    this.errors.setActualValue(actual);
+    this.errors.setExpectedValue(expected);
+    const message = this.errors.setErrorMessage();
+    this.errors.pushErrorMessageToStack(message)
   }
 
   placeTestInCorrectArray(testStatus, shownConsoleMessage){

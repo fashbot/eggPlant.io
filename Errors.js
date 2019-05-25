@@ -6,10 +6,28 @@ class Errors{
   constructor(){
     this.errorStack = [];
     this.currentErrorMessage = null;
+    this.actualValue = null;
+    this.expectedValue = null;
   }
 
-  setErrorMessage(actualValue, expectedValue){
-    this.currentErrorMessage =  message.errorMessage(actualValue, expectedValue)
+  setActualValue(value){
+    this.actualValue = value;
+  };
+
+  getActualValue(){
+    return this.actualValue
+  };
+
+  setExpectedValue(value){
+    this.expectedValue = value;
+  };
+
+  getExpectedValue(){
+    return this.expectedValue
+  }
+
+  setErrorMessage(){
+    this.currentErrorMessage =  message.errorMessage(this.getActualValue(),this.getExpectedValue())
     return this.formatErrorMessage()
   }
 

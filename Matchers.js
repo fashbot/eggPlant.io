@@ -132,8 +132,9 @@ testing('A', () => {
     expect(x).toBeOfType('cheese');
   })
 
-  checks('if x', () => {
-    expect(1).toBe(1);
+  checks('TEST', () => {
+    const x =  2 + 4
+    expect(x).toBe(1);
   })
 
   checks('if d', () => {
