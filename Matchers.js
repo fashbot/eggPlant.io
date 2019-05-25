@@ -13,7 +13,10 @@ const testing = (testDescription, callback) => {
   const testDescDisplay = `${message.TEST_SUITE}${testDescription}`
   console.log(chalk.yellow(testDescDisplay))
   callback();
+  displayMatchers();
 }
+
+
 const checks = (testDescription, callback) => {
   currentTestDesc = testDescription;
   callback();
@@ -102,52 +105,14 @@ const expect = (expectedValue) => {
   };
 }
 
-testing('x', () => {
-  checks('if', () => {
-    expect(1).toBe(000);
-  })
+const displayMatchers = () => {
+  testStatusDisplay.displayCompleteTestResults();
+  testStatusDisplay.displayCompleteErrors();
+}
 
-  checks('if x', () => {
-    var x = "tomato"
-    expect(x).toBeOfType('cheese');
-  })
-
-  checks('if x', () => {
-    expect(1).toBe(1);
-  })
-
-  checks('if d', () => {
-    expect(1).toBe(000);
-  })
-})
-
-
-testing('A', () => {
-  checks('if', () => {
-    expect(1).toBe(000);
-  })
-
-  checks('if x', () => {
-    var x = "tomato"
-    expect(x).toBeOfType('cheese');
-  })
-
-  checks('TEST', () => {
-    const x =  2 + 4
-    expect(x).toBe(1);
-  })
-
-  checks('if d', () => {
-    expect(1).toBe(000);
-  })
-
-  checks('greater than', () => {
-    expect(1).toBeGreaterThanOrEqualsTo(3);
-  });
-
-
-})
-
-
-testStatusDisplay.displayCompleteTestResults();
-testStatusDisplay.displayCompleteErrors();
+module.exports = {
+  testing,
+  checks,
+  expect,
+  displayMatchers
+}

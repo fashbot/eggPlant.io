@@ -55,6 +55,7 @@ class TestStatusDisplay{
     this.updateFullTestArray();
     this.fullTestList.map( status => this.styleResultsDisplay(status))
     this.styleWithBorder();
+    this.fullTestList = []
   }
 
   styleWithBorder(){
