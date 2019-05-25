@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const message = require('./Messages');
-const Errors = require('./Errors')
+const ErrorHandler = require('./ErrorHandler')
 
 class TestStatusDisplay{
 
@@ -8,7 +8,7 @@ class TestStatusDisplay{
     this.passingTests = [];
     this.failingTests = [];
     this.fullTestList = [];
-    this.errors = new Errors();
+    this.errorHandler = new ErrorHandler();
   }
 
   testWithExpectedCondition(condition, currentTestDescription){
@@ -26,10 +26,10 @@ class TestStatusDisplay{
   };
 
   logTestErrors(actual, expected, expression){
-    this.errors.setActualValue(actual);
-    this.errors.setExpectedValue(expected);
-    const message = this.errors.setErrorMessage();
-    this.errors.pushErrorMessageToStack(message)
+    this.errorHandler.setActualValue(actual);
+    this.errorHandler.setExpectedValue(expected);
+    const message = this.errorHandler.setErrorMessage();
+    this.errorHandler.pushErrorMessageToStack(message)
   }
 
   placeTestInCorrectArray(testStatus, shownConsoleMessage){
@@ -64,7 +64,7 @@ class TestStatusDisplay{
   }
 
   displayCompleteErrors(){
-      this.errors.displayAllErrors();
+      this.errorHandler.displayAllErrors();
   }
 
 }

@@ -1,11 +1,9 @@
 const chalk = require('chalk');
 const message = require( './Messages');
 const TestStatusDisplay = require('./TestStatusDisplay');
-const Errors = require('./Errors')
 
 let currentTestDesc = null
 let testStatusDisplay = new TestStatusDisplay();
-let error = new Errors();
 let expectedCondition = null
 
 const testing = (testDescription, callback) => {
