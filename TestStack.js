@@ -1,4 +1,3 @@
-
 let instance = null;
 
 class TestStack{
@@ -32,8 +31,15 @@ class TestStack{
   }
 
   updateFullTestStack(){
+    this.testStack = [];
     this.testStack = this.testStack.concat(this.passingTestStack, this.failingTestStack);
   }
+
+  getTechStack(){
+    return this.testStack;
+  }
+
+
 
 
 

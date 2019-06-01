@@ -2,70 +2,70 @@ const chalk = require('chalk');
 const message = require('./Messages');
 const ErrorHandler = require('./ErrorHandler')
 const TestStack = require('./TestStack.js')
-
+const ConsoleLogger = require('./ConsoleLogger.js')
 
 let instance = null;
+let testResultText = '';
+let currentTestDescription = '';
+let consoleLogger = new ConsoleLogger();
 const errorStack = new ErrorHandler();
 const testStack = new TestStack();
 
 class ResultHandler{
 
   constructor(){
-    if(!instance){
-      instance = this;
-    }
-
-    this.testResultText = '';
-    this.currentTestDescription = '';
-    return instance;
+      this.stack = [];
+      this.errorMessage = '';
   }
 
-
-  evaluateTest(condition, currentTestDescription){
-    this.currentTestDescription = currentTestDescription;
+  evaluateTest(condition, testDesc){
+    currentTestDescription = testDesc;
     return condition ? this.logResult(message.TEST_PASSED) : this.logResult(message.TEST_FAILED);
   }
 
+  getStack(){
+    return this.stack;
+  }
+
+  setStack(value){
+    this.stack = value;
+  }
+
   logResult(testStatus){
-    this.testResultText = `${testStatus}${this.currentTestDescription}`
+    testResultText = `${testStatus}${currentTestDescription}`
     this.sortTestByStatus(testStatus)
   };
 
   logTestErrors(actual, expected, expression){
-    this.errorHandler.setActualValue(actual);
-    this.errorHandler.setExpectedValue(expected);
-    const message = this.errorHandler.setErrorMessage();
-    this.errorHandler.pushErrorMessageToStack(message)
+    errorStack.setActualValue(actual);
+    errorStack.setExpectedValue(expected);
+    this.errorMessage = errorStack.setErrorMessage();
+    errorStack.pushErrorMessageToStack(this.errorMessage)
   }
 
   sortTestByStatus(testStatus){
-    const isPassing = (testStatus == message.TEST_PASSED)
-    const test = this.testResultText
-    return isPassing ? testStack.addPassingTest(test) : test.addFailingTest(test)
-  }
-
-  styleResultsDisplay(str){
-    if(str.includes( message.TEST_PASSED)){ console.log(chalk.green(str)); }
-    else{ console.log(chalk.red(str)); }
+    const isPassing = (testStatus == message.TEST_PASSED);
+    return isPassing ? testStack.addPassingTest(testResultText) : testStack.addFailingTest(testResultText)
   }
 
   displayCompleteTestResults(){
+
     this.styleWithBorder();
-    this.updateFullTestArray();
-    this.fullTestList.map( status => this.styleResultsDisplay(status))
+    testStack.updateFullTestStack();
+    this.setStack(testStack.getTechStack());
+    consoleLogger.styleResultsDisplay(this.getStack());
     this.styleWithBorder();
-    this.fullTestList = []
   }
 
   styleWithBorder(){
-    console.log(message.BLANK);
-    console.log(message.DIVIDER)
+    consoleLogger.showBlank();
+    consoleLogger.showDivider();
   }
 
   displayCompleteErrors(){
-      this.errorHandler.displayAllErrors();
+      errorStack.displayAllErrors();
   }
 
 }
 
-module.exports = new ResultHandler();
+module.exports =  ResultHandler;

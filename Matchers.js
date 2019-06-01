@@ -1,19 +1,19 @@
 const chalk = require('chalk');
 const message = require( './Messages');
-const TestStatusDisplay = require('./TestStatusDisplay');
-
+const ResultHandler = require('./ResultHandler.js');
+const ConsoleLogger = require('./ConsoleLogger.js')
+let consoleLogger = new ConsoleLogger();
+const resultHandler = new ResultHandler();
 let currentTestDesc = null
-let testStatusDisplay = new TestStatusDisplay();
 let expectedCondition = null
 
 const testing = (testDescription, callback) => {
-  console.log(message.BLANK)
+  consoleLogger.showBlank();
   const testDescDisplay = `${message.TEST_SUITE}${testDescription}`
-  console.log(chalk.yellow(testDescDisplay))
+  consoleLogger.showTextInYellow(testDescDisplay)
   callback();
   displayMatchers();
 }
-
 
 const checks = (testDescription, callback) => {
   currentTestDesc = testDescription;
@@ -21,8 +21,8 @@ const checks = (testDescription, callback) => {
 }
 
 const displayResults = (actualValue, expectedValue) => {
-  testStatusDisplay.testWithExpectedCondition(expectedCondition, currentTestDesc)
-  return !expectedCondition ? testStatusDisplay.logTestErrors(expectedValue, actualValue) : null;
+  resultHandler.evaluateTest(expectedCondition, currentTestDesc);
+  return !expectedCondition ? resultHandler.logTestErrors(expectedValue, actualValue) : null;
 }
 
 const expect = (expectedValue) => {
@@ -104,8 +104,8 @@ const expect = (expectedValue) => {
 }
 
 const displayMatchers = () => {
-  testStatusDisplay.displayCompleteTestResults();
-  testStatusDisplay.displayCompleteErrors();
+  resultHandler.displayCompleteTestResults();
+  resultHandler.displayCompleteErrors();
 }
 
 module.exports = {

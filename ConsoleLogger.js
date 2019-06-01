@@ -32,5 +32,16 @@ class ConsoleLogger{
     console.log(message.DIVIDER)
   }
 
+  styleResultsDisplay(str){
+    str.forEach( item => {
+      if(item.includes( message.TEST_PASSED)){
+        this.showTextInGreen(item);
+      }
+      else{
+        this.showTextInRed(item);
+      }
+    })
+  }
 
 }
+module.exports = ConsoleLogger;
