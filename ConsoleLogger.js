@@ -27,4 +27,10 @@ class ConsoleLogger{
     console.log(message.DIVIDER)
   }
 
+  styleWithBorder(){
+    console.log(message.BLANK);
+    console.log(message.DIVIDER)
+  }
+
+
 }
