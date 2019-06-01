@@ -13,3 +13,4 @@ class TestStack{
   }
 
 }
+module.exports = TestStack
